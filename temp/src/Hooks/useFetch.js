@@ -1,17 +1,19 @@
 import {useState, useEffect} from 'react'
 
 export const useFetch = (url) => {
-    const [products, setProduct] = useState();
+    const [data, setData] = useState(null);
 
-    useEffect(() => {
-        async function FetchProducs() {
-            let resp = await fetch(url).then(resp => resp.json());
-            setProduct(resp)
+
+    useEffect (() => {
+        const fetchData = async () => {
+            const res = await fetch(url)
+            const json = await res.json();
+            setData(json)
         }
+        fetchData();
+    }, [url]);
 
-        FetchProducs();
 
-    }, [url])
-
-    return products;
+    return {data}
 }
+
