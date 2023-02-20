@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 
 
@@ -22,24 +22,39 @@ function App() {
 
   return (
     <main className="App">
+      <h1>Previsão do tempo</h1>
       <form onSubmit={NewCity}>
         <label>
           <span>Digite o nome da cidade:</span>
           <br />
           <input type="text" name="city" placeholder="cidade:" ref={inputRef}/>
         </label>
-        <input type="submit" value="Enviar" />
+        <input type="submit" value="Enviar" className='btn' />
       </form>
 
       {Tempo && (
-        <div>
-          <h2>{Tempo.name}</h2>
-          <p>{Tempo.main.temp}</p>
-          <p>{Tempo.weather[0].description}</p>
-          <p>{Tempo.main.humidity}%</p>
-          <p><img crossOrigin="anonymous" src={`https://countryflagsapi.com/png/${Tempo.sys.country}`}/></p>
-          <p><img src={`http://openweathermap.org/img/wn/${Tempo.weather[0].icon}.png`} /></p>
-        </div>
+        <section className='temp'>
+
+          <div className='Location'>
+            <h2>{Tempo.name} -</h2>
+            <div className='img_cont'>
+              <img crossOrigin="anonymous" src={`https://countryflagsapi.com/png/${Tempo.sys.country}`}/>
+            </div>
+          </div>
+          
+          <div className='Temp_Humidity'>
+            <p>Temperatura: {Tempo.main.temp} Graus.</p>
+            <p>Umidade: {Tempo.main.humidity}%</p>
+          </div>
+          
+          <div className='sky'>
+            <div className='sky_ico'>
+              <img src={`http://openweathermap.org/img/wn/${Tempo.weather[0].icon}.png`} />
+            </div>
+            <p>{Tempo.weather[0].description}.</p>
+          </div>
+
+        </section>
       )}
       
       
